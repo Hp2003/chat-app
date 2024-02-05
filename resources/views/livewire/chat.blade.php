@@ -24,7 +24,7 @@
             </div>
         </div>
         {{-- main messages section --}}
-        <div class="messages  w-[66.66%] relative overflow-hidden">
+        <div class="messages  w-[66.66%] relative ">
             <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
                 <div class="flex items-center space-x-5">
                     <div class="p-5 rounded-full bg-red-500"></div>
@@ -36,61 +36,51 @@
                 </div>
             </div>
             {{-- messages --}}
-            <div class="overflow-auto h-full w-full">
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+            <div class=" h-[90%] w-full">
+                <div class="h-full overflow-auto">
+                    <div class="flex justify-start">
+                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
+                            <p class="text-lg">Hello</p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex justify-end">
-                    <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
-                </div>
-                <div class="flex justify-end">
-                    <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
-                </div>
-                <div class="flex justify-end">
-                    <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
-                </div>
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+                    <div class="flex justify-end">
+                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
                     </div>
-                </div>
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+                    <div class="flex justify-end">
+                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
                     </div>
-                </div>
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+                    <div class="flex justify-end">
+                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
                     </div>
-                </div>
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+                    <div class="flex justify-start">
+                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
+                            <p class="text-lg">Hello</p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex justify-start">
-                    <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                        {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                        <p class="text-lg">Hello</p>
+                    <div class="flex justify-start">
+                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
+                            <p class="text-lg">Hello</p>
+                        </div>
                     </div>
+                    <div class="flex justify-start">
+                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
+                            <p class="text-lg">Hello</p>
+                        </div>
+                    </div>
+                    <div class="p-4 w-full mb-4"></div>
                 </div>
-                <div class="flex justify-end">
-                    <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
-                </div>
-            </div>
 
-            {{-- send msg --}}
-            <div class="p-4 flex  space-x-5 absolute bottom-0 w-full bg-[#152330]">
-                <input type="text" class="bg-slate-500 w-[90%] rounded-md py-2 px-5" placeholder="enter message..." name="" id="">
-                <i class="fa-solid fa-paper-plane py-2"></i>
+                {{-- send msg form --}}
+                <div class="p-4 flex absolute space-x-1 bottom-0 w-full bg-[#152330]">
+                    <input type="text" class="bg-slate-500/90 w-[90%] rounded-md py-2 px-5" placeholder="enter message..." name="" id="">
+                    <button class="py-2 rounded-md  bg-slate-500/90 px-5">
+                        <i class="fa-solid fa-paper-plane "></i>
+                    </button>
+                </div>
             </div>
         </div>
 
