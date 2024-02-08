@@ -9,7 +9,8 @@
                 <a href=""><i class="fa-solid fa-gear p-5 text-lg mt-2"></i></a>
             </div>
             <div class="p-4 flex justify-between ">
-                <input type="text" class="bg-slate-500 w-[90%] rounded-md px-3 py-1" placeholder="search..." name="" id="">
+                <input type="text" class="bg-slate-500 w-[90%] rounded-md px-3 py-1" placeholder="search..."
+                    name="" id="">
                 <i class="fa-solid fa-filter p-3"></i>
             </div>
             <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
@@ -39,34 +40,44 @@
             <div class=" h-[90%] w-full">
                 <div class="h-full overflow-auto">
                     <div class="flex justify-start">
-                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                        <div
+                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
                             {{-- <p class="text-sm text-blue-800">user name</p> --}}
                             <p class="text-lg">Hello</p>
                         </div>
                     </div>
                     <div class="flex justify-end">
-                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
+                        <p
+                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
+                            Hello</p>
                     </div>
                     <div class="flex justify-end">
-                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
+                        <p
+                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
+                            Hello</p>
                     </div>
                     <div class="flex justify-end">
-                        <p class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">Hello</p>
+                        <p
+                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
+                            Hello</p>
                     </div>
                     <div class="flex justify-start">
-                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                        <div
+                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
                             {{-- <p class="text-sm text-blue-800">user name</p> --}}
                             <p class="text-lg">Hello</p>
                         </div>
                     </div>
                     <div class="flex justify-start">
-                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                        <div
+                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
                             {{-- <p class="text-sm text-blue-800">user name</p> --}}
                             <p class="text-lg">Hello</p>
                         </div>
                     </div>
                     <div class="flex justify-start">
-                        <div class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
+                        <div
+                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
                             {{-- <p class="text-sm text-blue-800">user name</p> --}}
                             <p class="text-lg">Hello</p>
                         </div>
@@ -76,7 +87,8 @@
 
                 {{-- send msg form --}}
                 <div class="p-4 flex absolute space-x-1 bottom-0 w-full bg-[#152330]">
-                    <input type="text" class="bg-slate-500/90 w-[90%] rounded-md py-2 px-5" placeholder="enter message..." name="" id="">
+                    <input type="text" class="bg-slate-500/90 w-[90%] rounded-md py-2 px-5"
+                        placeholder="enter message..." name="" id="">
                     <button class="py-2 rounded-md  bg-slate-500/90 px-5">
                         <i class="fa-solid fa-paper-plane "></i>
                     </button>
@@ -85,5 +97,4 @@
         </div>
 
     </div>
-</div>
 </div>
