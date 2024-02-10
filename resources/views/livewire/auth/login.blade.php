@@ -10,7 +10,7 @@
                 <i class="fa-solid fa-lock p-2 text-2xl bg-slate-500 text-white"></i>
                 <x-form.user-text-input type="password" name="" id="password"  placeholder="Password"/>
                 {{-- <input type="password" name="" id="password" class="px-3 border w-full py-1 pr-6" placeholder="Password"> --}}
-                <button onclick="showPassword()" class="fa-solid fa-eye p-3 absolute end-0 eye-button" id=""></button>
+                <button onclick="showPassword(event)" class="fa-solid fa-eye p-3 absolute end-0 eye-button" id=""></button>
             </div>
             <div class=" flex justify-between w-[90%] mx-auto">
                 <div>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="w-[90%] mx-auto" wire:loading.remove>
-            <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 py-2 text-white w-full rounded-md">Sign in</button>
+            <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 py-2 text-white w-full rounded-md" >Sign in</button>
         </div>
         <div class="w-[90%] mx-auto" wire:loading>
             <x-form.spinner-button/>
