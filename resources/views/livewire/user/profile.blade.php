@@ -22,7 +22,10 @@
         {{-- delete profile --}}
         <div class="w-full grid justify-items-center ">
             <div class="w-[40%] mx-auto" wire:loading.remove>
-                <button class="bg-red-500 hover:bg-red-600 my-5 active:bg-red-700 py-2 text-white w-full rounded-md" >Delete Account</button>
+                <button class="bg-red-500 hover:bg-red-600 mt-5 active:bg-red-700 py-2 text-white w-full rounded-md" >Delete Account</button>
+            </div>
+            <div class="w-[40%] mx-auto" wire:loading.remove>
+                <button class="border text-red-500 border-red-500 hover:bg-red-600  active:bg-red-700 py-2 hover:text-white w-full rounded-md" onclick="window.location.href='/logout'" >Logout</button>
             </div>
         </div>
 
