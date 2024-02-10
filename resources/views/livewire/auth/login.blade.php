@@ -9,14 +9,12 @@
             <div class=" flex justify-center relative w-[90%] mx-auto">
                 <i class="fa-solid fa-lock p-2 text-2xl bg-slate-500 text-white"></i>
                 <x-form.user-text-input type="password" name="" id="password"  placeholder="Password"/>
-                {{-- <input type="password" name="" id="password" class="px-3 border w-full py-1 pr-6" placeholder="Password"> --}}
                 <button onclick="showPassword(event)" class="fa-solid fa-eye p-3 absolute end-0 eye-button" id=""></button>
             </div>
             <div class=" flex justify-between w-[90%] mx-auto">
                 <div>
                     <input type="checkbox" name="" id="" class=" mx-2 " placeholder="Password ">
                     <label for="">Remember me</label>
-
                 </div>
                 <div>
                     <a href="#" class="text-blue-500 active:text-purple-600">Forgot Password?</a>
@@ -33,7 +31,7 @@
             {{-- spacer --}}
         </div>
         <div class="text-center mx-atuo">
-            Don't have an account? <a href="" class="text-blue-500 active:text-purple-600">Sing up</a>!
+            Don't have an account? <a href="{{ route('register') }}" class="text-blue-500 active:text-purple-600" wire:navigate>Sing up</a>!
         </div>
     </form>
 </div>
