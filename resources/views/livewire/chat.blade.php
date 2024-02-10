@@ -1,8 +1,8 @@
 <div class="w-full h-screen  flex justify-center items-center">
-    <div class="w-full md:w-[95%] h-[700px] bg-[#152330] flex text-white">
-        <div class="users border w-1/3  h-full overflo-auto">
+    <div class="w-full md:w-[95%] h-[700px] bg-[#152330] flex  text-white">
+        <div class="users border w-1/3 h-full overflow-x-hidden overflo-auto" id="userList">
             <div class="flex justify-between bg-[#162838]">
-                <div class="w-full p-5 flex items-center space-x-5 ">
+                <div class="w-full p-5 flex items-center space-x-5  ">
                     <div class="p-5 rounded-full bg-red-500"></div>
                     <h4>Main user</h4>
                 </div>
@@ -25,9 +25,10 @@
             </div>
         </div>
         {{-- main messages section --}}
-        <div class="messages  w-[66.66%] relative ">
+        <div class="messages  w-full relative ">
             <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
                 <div class="flex items-center space-x-5">
+                    <button onclick="toggleUserList(event)"><i class="fa-solid fa-bars p-5 text-lg mt-2" ></i></button>
                     <div class="p-5 rounded-full bg-red-500"></div>
                     <h4>Person 1</h4>
                 </div>

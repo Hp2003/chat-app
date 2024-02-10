@@ -1,3 +1,5 @@
+
+
 function showPassword(e){
     e.preventDefault();
 
@@ -13,5 +15,21 @@ function showPassword(e){
         button.classList.remove('fa-eye-slash')
         button.classList.add('fa-eye')
         input.type = "password";
+    }
+}
+
+
+function toggleUserList(e){
+    e.preventDefault();
+
+    let listContainer = document.querySelector('#userList');
+
+    if(listContainer.classList.contains('animate-slideIn')){
+        listContainer.classList.add('animate-slideOut');
+        listContainer.style.width = '0%';
+        listContainer.classList.remove('animate-slideIn');
+    }else{
+        listContainer.classList.remove('animate-slideOut');
+        listContainer.classList.add('animate-slideIn');
     }
 }
