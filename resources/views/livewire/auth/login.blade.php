@@ -1,15 +1,25 @@
 <div class="w-full h-screen flex justify-center items-center bg-gray-50">
-    <form class="w-[400px] h-[500px] flex flex-col space-y-10 shadow-lg shadow-gray-500" wire:submit="login">
+    <form class="w-[400px] h-[500px] flex flex-col space-y-10 shadow-lg shadow-gray-500" wire:submit="signIn">
         <h1 class="text-2xl text-center p-3 mt-5"  >Welcome Back...!</h1>
         <div class="flex flex-col space-y-7">
-            <div class=" flex justify-center w-[90%] mx-auto ">
-                <i class="fa-solid fa-envelope p-2 text-2xl bg-slate-500 text-white"></i>
-                <input type="text" name="" id="" class="px-3 border w-full py-1" placeholder="Email">
+            <div class=" flex-col justify-center w-[90%] mx-auto ">
+                <div class="flex justify-center w-full">
+                    <i class="fa-solid fa-envelope p-2 text-2xl bg-slate-500 text-white"></i>
+                    <input type="email"  name="" id="" class="px-3 border w-full py-1"wire:model="email" placeholder="Email" required>
+                </div>
+                @error('email')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
-            <div class=" flex justify-center relative w-[90%] mx-auto">
-                <i class="fa-solid fa-lock p-2 text-2xl bg-slate-500 text-white"></i>
-                <x-form.user-text-input type="password" name="" id="password"  placeholder="Password"/>
-                <button onclick="showPassword(event)" class="fa-solid fa-eye p-3 absolute end-0 eye-button" id=""></button>
+            <div class=" flex-col justify-center relative w-[90%] mx-auto">
+                <div class="flex justify-center w-full">
+                    <i class="fa-solid fa-lock p-2 text-2xl bg-slate-500 text-white"></i>
+                    <x-form.user-text-input type="password" name="" id="password" wire:model="password" placeholder="Password" required/>
+                    <button onclick="showPassword(event)" class="fa-solid fa-eye p-3 absolute end-0 eye-button" id=""></button>
+                </div>
+                @error('password')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
             <div class=" flex justify-between w-[90%] mx-auto">
                 <div>
