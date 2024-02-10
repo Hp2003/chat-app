@@ -2,6 +2,7 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
+use App\Livewire\User\Profile;
 use App\Livewire\Chat;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Route::get('/', function () {
 Route::get('chat', Chat::class);
 Route::get('login', Login::class)->name('login');
 Route::get('register', Register::class)->name('register');
+Route::get('profile', Profile::class)->name('profile');
