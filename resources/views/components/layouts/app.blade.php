@@ -144,6 +144,9 @@
     @livewireScripts
     <script src="https://kit.fontawesome.com/e18904f022.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/index.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <x-livewire-alert::scripts />
 </body>
 
 </html>
