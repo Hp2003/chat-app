@@ -25,9 +25,9 @@
                         {{-- menu --}}
                         <div class="absolute right-2 group-hover:block  hidden  ">
                             <ul class="bg-white/30 rounded-sm w-[8em] left-0">
-                                <li class="py-3 px-4 text-green-400 hover:bg-black/20"><i class="fa-solid fa-user mx-2"></i> Profile</li>
-                                <li class="py-3 px-4 text-yellow-400 hover:bg-black/20"><i class="fa-solid mx-2 fa-volume-xmark"></i>Mute</li>
-                                <li class="py-3 px-4 text-red-400 hover:bg-black/20"> <i class="fa-solid fa-trash mx-2"></i> Remove</li>
+                                <li class="py-3 px-4 text-green-400 flex items-center hover:bg-black/20"><i class="fa-solid fa-user mx-2"></i> Profile</li>
+                                <li class="py-3 px-4 text-yellow-400 flex items-center hover:bg-black/20"><i class="fa-solid mx-2 fa-volume-xmark"></i>Mute</li>
+                                <li class="py-3 px-4 text-red-400 flex items-center hover:bg-black/20"> <i class="fa-solid  fa-user-minus mx-2"></i> Remove</li>
                             </ul>
                         </div>
                     </span>
@@ -99,7 +99,7 @@
                 {{-- send msg form --}}
                 <div class="p-4 flex absolute space-x-1 bottom-0 w-full bg-[#152330]">
                     <input type="text" class="bg-slate-500/90 w-[90%] rounded-md py-2 px-5"
-                        placeholder="enter message..." name="" id="">
+                        placeholder="Enter message..." name="" id="">
                     <button class="py-2 rounded-md  bg-slate-500/90 px-5">
                         <i class="fa-solid fa-paper-plane "></i>
                     </button>
