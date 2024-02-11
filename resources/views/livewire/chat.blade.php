@@ -50,49 +50,8 @@
             {{-- messages --}}
             <div class=" h-[90%] w-full">
                 <div class="h-[90%] overflow-auto">
-                    <div class="flex justify-start">
-                        <div
-                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                            <p class="text-lg">Hello</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <p
-                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
-                            Hello</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <p
-                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
-                            Hello</p>
-                    </div>
-                    <div class="flex justify-end">
-                        <p
-                            class="py-5 px-4 bg-blue-600 inline-block m-5 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
-                            Hello</p>
-                    </div>
-                    <div class="flex justify-start">
-                        <div
-                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                            <p class="text-lg">Hello</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-start">
-                        <div
-                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                            <p class="text-lg">Hello</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-start">
-                        <div
-                            class="bg-blue-400/90 inline-block py-5 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5">
-                            {{-- <p class="text-sm text-blue-800">user name</p> --}}
-                            <p class="text-lg">Hello</p>
-                        </div>
-                    </div>
+                    <x-chat.friend-message message="hello" time="12:01:2023 12:24 PM" />
+                    {{-- <x-chat.my-message /> --}}
                     <div class="p-4 w-full mb-4"></div>
                 </div>
 
