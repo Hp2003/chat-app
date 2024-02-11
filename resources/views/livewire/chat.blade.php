@@ -51,7 +51,7 @@
             <div class=" h-[90%] w-full">
                 <div class="h-[90%] overflow-auto">
                     <x-chat.friend-message message="hello" time="12:01:2023 12:24 PM" />
-                    {{-- <x-chat.my-message /> --}}
+                    <x-chat.my-message message="hello" time="12:01:2023 12:24 PM" />
                     <div class="p-4 w-full mb-4"></div>
                 </div>
 
