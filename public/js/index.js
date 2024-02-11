@@ -33,3 +33,24 @@ function toggleUserList(e){
         listContainer.classList.add('animate-slideIn');
     }
 }
+
+function showSendRequest(index){
+    let container =  document.querySelectorAll('.send-request-option')[index];
+    let button =  document.querySelectorAll('.send-btn')[index];
+
+    container.classList.remove('hidden');
+    container.classList.add('flex');
+
+    button.classList.add('hidden');
+
+}
+
+function removeSendRequest(index){
+    let container =  document.querySelectorAll('.send-request-option')[index];
+    let button =  document.querySelectorAll('.send-btn')[index];
+
+    container.classList.remove('flex');
+    container.classList.add('hidden');
+
+    button.classList.remove('hidden');
+}

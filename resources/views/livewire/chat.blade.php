@@ -19,9 +19,9 @@
                 <x-chat.user-list-row name="{{ $friend->user_name }}"/>
             @endforeach
         @else
+        {{-- When user has no friends --}}
         <div class=" flex justify-center ">
-
-            <button class="py-2 px-5 bg-green-500 rounded-md text-white hover:bg-green-600 active:bg-green-700"><i class="fa-solid fa-plus"></i> Add Friends </button>
+            <a href="{{ route('add-friend') }}" wire:navigate class="py-2 px-5 bg-green-500 rounded-md text-white hover:bg-green-600 active:bg-green-700"><i class="fa-solid fa-plus"></i> Add Friends </a>
         </div>
         @endif
         </div>
