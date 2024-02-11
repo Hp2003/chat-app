@@ -1,5 +1,5 @@
 <div class="w-full h-screen  flex justify-center items-center">
-    <div class="w-full md:w-[95%] h-[700px] bg-[#152330] flex  text-white">
+    <div class="w-full md:w-[95%] h-[700px] bg-[#152330]/90 flex  text-white">
         <div class="users border w-1/3 h-full overflow-x-hidden overflo-auto" id="userList">
             <div class="flex justify-between bg-[#162838] ">
                 <div class="w-full p-5 flex items-center space-x-5">
@@ -9,7 +9,7 @@
                 {{-- <a href=""><i class="fa-solid fa-gear p-5 text-lg mt-2"></i></a> --}}
             </div>
             <div class="p-4 flex justify-between ">
-                <input type="text" class="bg-slate-500 w-[90%] rounded-md px-3 py-1" placeholder="search..."
+                <input type="text" class="bg-slate-500 w-[90%] rounded-md px-3 py-1" wire:model.live.delay.shorter="search" placeholder="search..."
                     name="" id="">
                 <i class="fa-solid fa-filter p-3"></i>
             </div>

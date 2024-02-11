@@ -11,10 +11,12 @@ use App\Models\User;
 
 class Chat extends Component
 {
+    public $search;
+
     public function render(User $user)
     {
         $user = $user->find(auth()->user()->id);
-        $friends = $user->getFriends();
+        $friends = $user->getFriends($this->search);
 
         return view('livewire.chat', compact('friends'));
     }

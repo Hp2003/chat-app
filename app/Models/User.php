@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -46,11 +47,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getFriends()
+    public function getFriends($search = null)
     {
         $friends =  $this->hasMany(Friend::class, 'user_id', $this->user_id)->get();
         $friends = Arr::pluck($friends, ['friend_id']);
-        $friends = $this->whereIn('id', $friends)->get();
+        $friends = $this->whereIn('id', $friends)->when($search, function($query, $search){
+            $query->where(DB::raw('LOWER(user_name)'), 'like', '%' . trim(strtolower($search)) . '%');
+        })->get();
 
         return $friends;
     }
