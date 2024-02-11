@@ -14,9 +14,16 @@
                 <i class="fa-solid fa-filter p-3"></i>
             </div>
         {{-- Listing friends --}}
+        @if(count($friends) > 0)
             @foreach ($friends as $friend)
                 <x-chat.user-list-row name="{{ $friend->user_name }}"/>
             @endforeach
+        @else
+        <div class=" flex justify-center ">
+
+            <button class="py-2 px-5 bg-green-500 rounded-md text-white hover:bg-green-600 active:bg-green-700"><i class="fa-solid fa-plus"></i> Add Friends </button>
+        </div>
+        @endif
         </div>
         {{-- main messages section --}}
         <div class="messages  w-full relative ">
