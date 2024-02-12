@@ -72,4 +72,17 @@ class AddFriendForm extends Component
             $this->alert('warning', 'Failed sending request!');
         }
     }
+
+    public function getListeners()
+    {
+        return [
+            "echo-private:friend-request-recived.". auth()->user()->id .",FriendRequestSent" => "showRequestPopup",
+        ];
+    }
+
+    public function showRequestPopup()
+    {
+        // $this->requestCount += 1;
+        $this->alert('success', 'A friend request recived');
+    }
 }

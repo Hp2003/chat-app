@@ -53,6 +53,5 @@ class Chat extends Component
     public function mount(User $user)
     {
         $this->user = $user->find(auth()->user()->id);
-
     }
 }
