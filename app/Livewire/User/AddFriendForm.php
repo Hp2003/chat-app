@@ -19,22 +19,23 @@ class AddFriendForm extends Component
 {
     use LivewireAlert;
     public $search;
+    public $requestCount = 0;
 
     public function render()
     {
         $user = User::find(auth()->user()->id);
-        $user->getFriends($this->search);
 
-        $friends = $user->getFriends()->toArray();
+        $friends = [];
         $friends = Arr::pluck($friends, ['id']);
-
-        $users = User::when($this->search, function ($query, $search) {
+        $this->requestCount = $user->getFriends('', ['PENDING'])->count();
+        $user->getFriends('', ['FRIENDS', 'PENDING'])->get()->toArray();
+        $query = User::when($this->search, function ($query, $search) {
             $query->where(DB::raw('user_name'), 'like', '%' . trim(strtolower($search)) . '%');
         })
         ->whereNotIn('id', empty($friends) ? [0] : $friends)
-        ->whereNot('id', auth()->user()->id)
-        ->get();
+        ->whereNot('id', auth()->user()->id);
 
+        $users = $query->get();
         return view('livewire.user.add-friend-form', compact('users'));
     }
 
@@ -43,10 +44,10 @@ class AddFriendForm extends Component
         $user = User::where('uuid', $uuid)->first();
 
         $result = Friend::create([
-                'user_id' => auth()->user()->id,
-                'friend_id' => $user->id,
-                'uuid' => Str::uuid()->toString(),
-                'status' => 'PENDING',
+            'user_id' => auth()->user()->id,
+            'friend_id' => $user->id,
+            'uuid' => Str::uuid()->toString(),
+            'status' => 'PENDING',
         ]);
 
         $result2 = Friend::create([

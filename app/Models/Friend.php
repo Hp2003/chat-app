@@ -13,5 +13,12 @@ class Friend extends Model
         'uuid',
         'user_id',
         'friend_id',
+        'status',
     ];
+
+    public function getUser()
+    {
+        return User::where('id', $this->friend_id);
+    }
+
 }

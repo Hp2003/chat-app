@@ -48,14 +48,25 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getFriends($search = null)
+    /*
+        @search string
+        @status array
+    */
+
+    public function getFriends($search = null, $status)
     {
-        $friends =  $this->hasMany(Friend::class, 'user_id', $this->user_id)->get();
+        $friends =  $this->hasMany(Friend::class, 'user_id', $this->user_id)->whereIn('status', $status)->get();
         $friends = Arr::pluck($friends, ['friend_id']);
+
         $friends = $this->whereIn('id', $friends)->when($search, function($query, $search){
             $query->where(DB::raw('LOWER(user_name)'), 'like', '%' . trim(strtolower($search)) . '%');
-        })->get();
+        });
 
         return $friends;
+    }
+
+    public function getFriendUuid()
+    {
+        return $this->hasOne(Friend::class, 'friend_id', $this->user_id)->where('user_id', auth()->user()->id);
     }
 }

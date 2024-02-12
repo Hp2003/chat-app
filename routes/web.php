@@ -5,6 +5,7 @@ use App\Livewire\Auth\Register;
 use App\Livewire\User\Profile;
 use App\Livewire\Chat;
 use App\Livewire\User\AddFriendForm;
+use App\Livewire\User\FriendRequestList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('chat', Chat::class);
     Route::get('profile', Profile::class)->name('profile');
     Route::get('add_friend', AddFriendForm::class)->name('add-friend');
+    Route::get('show_requests', FriendRequestList::class)->name('show-requests');
     Route::get('logout', function(Request $request){
         Auth::logout();
         $request->session()->invalidate();

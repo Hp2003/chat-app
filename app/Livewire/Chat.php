@@ -16,7 +16,7 @@ class Chat extends Component
     public function render(User $user)
     {
         $user = $user->find(auth()->user()->id);
-        $friends = $user->getFriends($this->search);
+        $friends = $user->getFriends($this->search, ['FRIENDS'])->get();
 
         return view('livewire.chat', compact('friends'));
     }
