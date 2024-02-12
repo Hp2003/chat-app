@@ -9,6 +9,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
 
 #[Title('Add Friend')]
 #[Layout('components.layouts.app')]
@@ -22,22 +25,40 @@ class AddFriendForm extends Component
         $user = User::find(auth()->user()->id);
         $user->getFriends($this->search);
 
-        $users = User::when($this->search, function($query, $search){
+        $friends = $user->getFriends()->toArray();
+        $friends = Arr::pluck($friends, ['id']);
+
+        $users = User::when($this->search, function ($query, $search) {
             $query->where(DB::raw('user_name'), 'like', '%' . trim(strtolower($search)) . '%');
-        })->get();
+        })
+        ->whereNotIn('id', empty($friends) ? [0] : $friends)
+        ->whereNot('id', auth()->user()->id)
+        ->get();
 
         return view('livewire.user.add-friend-form', compact('users'));
     }
 
     public function sendRequest($uuid)
     {
-        $friend = User::where('uuid', $uuid)->first();
+        $user = User::where('uuid', $uuid)->first();
 
-        $result = Friend::create(['user_id' => auth()->user()->id, 'friend_id' => $friend->id]);
+        $result = Friend::create([
+                'user_id' => auth()->user()->id,
+                'friend_id' => $user->id,
+                'uuid' => Str::uuid()->toString(),
+                'status' => 'PENDING',
+        ]);
 
-        if($result){
+        $result2 = Friend::create([
+            'user_id' => $user->id,
+            'friend_id' => auth()->user()->id,
+            'uuid' => Str::uuid()->toString(),
+            'status' => 'REQUESTED',
+        ]);
+
+        if ($result && $result2) {
             $this->alert('success', 'Request sent successfully!');
-        }else{
+        } else {
             $this->alert('warning', 'Failed sending request!');
         }
     }

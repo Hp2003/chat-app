@@ -13,7 +13,7 @@
             <i class="fa-solid fa-user-plus "></i>
         </button>
         <div class=" items-center send-request-option hidden">
-            <button wire:click="sendFriendRequest({{ $uuid }})"><i class="fa-solid fa-check p-3 border border-green-500 rounded-full hover:text-white hover:bg-green-500"></i></button>
+            <button wire:click="sendRequest('{{ $uuid }}')"><i class="fa-solid fa-check p-3 border border-green-500 rounded-full hover:text-white hover:bg-green-500"></i></button>
             <button onclick="removeSendRequest({{ $index }})"><i class="fa-solid fa-xmark p-3 border mx-5 border-red-500 rounded-full hover:text-white hover:bg-red-500"></i></button>
         </div>
     </div>
