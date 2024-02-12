@@ -26,9 +26,15 @@ class AddFriendForm extends Component
         $user = User::find(auth()->user()->id);
 
         $friends = [];
-        $friends = Arr::pluck($friends, ['id']);
+
+        // setting users count
         $this->requestCount = $user->getFriends('', ['PENDING'])->count();
-        $user->getFriends('', ['FRIENDS', 'PENDING'])->get()->toArray();
+
+        // getting friends or pening invites
+        $friends = $user->getFriends('', ['FRIENDS', 'PENDING', 'REQUESTED'])->get()->toArray();
+        $friends = Arr::pluck($friends, ['id']);
+
+        // getting users which are not friends or in pending or requested list and also not current user
         $query = User::when($this->search, function ($query, $search) {
             $query->where(DB::raw('user_name'), 'like', '%' . trim(strtolower($search)) . '%');
         })
@@ -36,6 +42,7 @@ class AddFriendForm extends Component
         ->whereNot('id', auth()->user()->id);
 
         $users = $query->get();
+
         return view('livewire.user.add-friend-form', compact('users'));
     }
 
@@ -47,14 +54,14 @@ class AddFriendForm extends Component
             'user_id' => auth()->user()->id,
             'friend_id' => $user->id,
             'uuid' => Str::uuid()->toString(),
-            'status' => 'PENDING',
+            'status' => 'REQUESTED',
         ]);
 
         $result2 = Friend::create([
             'user_id' => $user->id,
             'friend_id' => auth()->user()->id,
             'uuid' => Str::uuid()->toString(),
-            'status' => 'REQUESTED',
+            'status' => 'PENDING',
         ]);
 
         if ($result && $result2) {

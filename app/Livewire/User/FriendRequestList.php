@@ -18,6 +18,7 @@ class FriendRequestList extends Component
     public $search;
     public function render()
     {
+
         $user = User::find(auth()->user()->id);
         $requests = $user->getFriends($this->search, ['PENDING'])->get();
 
@@ -27,7 +28,7 @@ class FriendRequestList extends Component
     public function acceptRequest($uuid)
     {
         $request = Friend::where('uuid', $uuid)->first();
-        $requester = Friend::where('user_id', $request->user_id)->first();
+        $requester = Friend::where('friend_id', $request->user_id)->where('user_id',$request->friend_id )->first();
 
         $request->status = 'FRIENDS';
         $requester->status = 'FRIENDS';
@@ -42,7 +43,7 @@ class FriendRequestList extends Component
     public function rejectRequest($uuid)
     {
         $request = Friend::where('uuid', $uuid)->first();
-        $requester = Friend::where('user_id', $request->user_id)->first();
+        $requester = Friend::where('friend_id', $request->user_id)->where('user_id',$request->friend_id )->first();
 
         $request->delete();
         $requester->delete();

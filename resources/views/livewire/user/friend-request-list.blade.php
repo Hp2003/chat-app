@@ -6,11 +6,17 @@
                     placeholder="Enter user name" name="" id="">
             </div>
         </div>
-        <div class="w-full flex-col space-y-1  ">
+        <div class="w-full h-full flex-col space-y-1  ">
             {{-- friends --}}
-            @foreach ($requests as $request)
-                <x-user.friend-request-user-row name="{{ $request->user_name }}" uuid="{{ $request->getFriendUuid()->first()->uuid }}" />
-            @endforeach
+            @if(count($requests) > 0)
+                @foreach ($requests as $request)
+                    <x-user.friend-request-user-row name="{{ $request->user_name }}" uuid="{{ $request->getFriendUuid()->first()->uuid }}" />
+                @endforeach
+            @else
+                <div class="flex h-full justify-center items-center">
+                    <h1 class="text-2xl">Sorry No Request Found :(</h1>
+                </div>
+            @endif
 
         </div>
     </div>
