@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('chat', Chat::class);
     Route::get('profile', Profile::class)->name('profile');
     Route::get('add_friend', AddFriendForm::class)->name('add-friend');
-    Route::get('show_requests', FriendRequestList::class)->name('show-requests');
+    Route::get('friend_requests', FriendRequestList::class)->name('friend-requests');
     Route::get('logout', function(Request $request){
         Auth::logout();
         $request->session()->invalidate();
