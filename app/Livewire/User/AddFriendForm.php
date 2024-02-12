@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Events\FriendRequestSent;
 use App\Models\Friend;
 use App\Models\User;
 use Livewire\Component;
@@ -65,6 +66,7 @@ class AddFriendForm extends Component
         ]);
 
         if ($result && $result2) {
+            FriendRequestSent::dispatch($result2);
             $this->alert('success', 'Request sent successfully!');
         } else {
             $this->alert('warning', 'Failed sending request!');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,8 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('test', function(){
     return 'connected';
 });
-Broadcast::channel('friend-request-recived', function(){
-    return 'connected';
+Broadcast::channel('friend-request-recived.{id}', function($id){
+    return auth()->user()->id === $id->id;
 });
 
 

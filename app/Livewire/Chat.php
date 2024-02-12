@@ -17,12 +17,12 @@ class Chat extends Component
 
     public $search;
     public $requestCount = 0;
+    public $user ;
 
-    public function render(User $user)
+    public function render()
     {
-        $user = $user->find(auth()->user()->id);
-        $friends = $user->getFriends($this->search, ['FRIENDS'])->get();
-        $this->requestCount = $user->getFriends('', ['PENDING'])->count();
+        $friends = $this->user->getFriends($this->search, ['FRIENDS'])->get();
+        $this->requestCount = $this->user->getFriends('', ['PENDING'])->count();
 
         return view('livewire.chat', compact('friends'));
     }
@@ -40,7 +40,19 @@ class Chat extends Component
     public function getListeners()
     {
         return [
-
+            "echo-private:friend-request-recived.". auth()->user()->id .",FriendRequestSent" => "showRequestPopup",
         ];
+    }
+
+    public function showRequestPopup()
+    {
+        // $this->requestCount += 1;
+        $this->alert('success', 'A friend request recived');
+    }
+
+    public function mount(User $user)
+    {
+        $this->user = $user->find(auth()->user()->id);
+
     }
 }
