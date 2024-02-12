@@ -1,4 +1,4 @@
-<div class="grid justify-items-start grid-rows-1 ">
+<div class="grid justify-items-start grid-rows-1 my-2 ">
     <div class="bg-blue-400/90  row inline-block py-3 px-4 rounded-tl-md rounded-tr-md rounded-br-md  m-5 my-1">
         {{-- <p class="text-sm text-blue-800">user name</p> --}}
         <p class="text-lg col-span-1">{{ $message }}</p>
@@ -14,6 +14,4 @@
             </ul>
         </div>
     </div>
-
-
 </div>

@@ -2,7 +2,7 @@
     'message',
     'time',
 ])
-<div class="grid justify-end ">
+<div class="grid justify-end my-2">
     <p class="py-3 px-4 bg-blue-600 inline-block m-5 my-1 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
         {{ $message }}
     </p>

@@ -16,11 +16,6 @@ class Friend extends Model
         'status',
     ];
 
-    public function getUser()
-    {
-        return User::where('id', $this->friend_id);
-    }
-
     /*
      *  @param $uuid string, string (uuid) of user in user table
      *  @return array, array of users friend1 = currnet login user friend2 = the user current user is friend to

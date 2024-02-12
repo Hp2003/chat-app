@@ -7,9 +7,11 @@
 <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
     <div class="flex items-center space-x-5">
         <div class="p-5 rounded-full bg-red-500"></div>
-        <h4 class="whitespace-nowrap">{{ $name }}</h4>
+        <button wire:click="selectUser('{{ $uuid }}')">
+            <h4 class="whitespace-nowrap">{{ $name }}</h4>
+        </button>
     </div>
-    <div class="flex flex-nowrap">
+    <div class="flex flex-nowrap user-row" >
         <i class="fa-solid fa-thumbtack py-4 px-2"></i>
         <span class=" relative  group">
             <i class="fa-solid fa-bars py-4 px-2"></i>

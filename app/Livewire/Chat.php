@@ -18,6 +18,7 @@ class Chat extends Component
     public $search;
     public $requestCount = 0;
     public $user ;
+    public $selectedUser ;
 
     public function render()
     {
@@ -53,5 +54,10 @@ class Chat extends Component
     public function mount(User $user)
     {
         $this->user = $user->find(auth()->user()->id);
+    }
+
+    public function selectUser($uuid)
+    {
+        $this->selectedUser = $uuid;
     }
 }
