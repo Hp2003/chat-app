@@ -27,14 +27,13 @@ class FriendRequestList extends Component
 
     public function acceptRequest($uuid)
     {
-        $request = Friend::where('uuid', $uuid)->first();
-        $requester = Friend::where('friend_id', $request->user_id)->where('user_id',$request->friend_id )->first();
+        $requests = Friend::getFriends($uuid);
 
-        $request->status = 'FRIENDS';
-        $requester->status = 'FRIENDS';
+        $requests[0]->status = 'FRIENDS';
+        $requests[1]->status = 'FRIENDS';
 
-        $request->save();
-        $requester->save();
+        $requests[0]->save();
+        $requests[1]->save();
 
         $this->alert('success', 'Request accepted successfully!');
 
@@ -42,11 +41,10 @@ class FriendRequestList extends Component
 
     public function rejectRequest($uuid)
     {
-        $request = Friend::where('uuid', $uuid)->first();
-        $requester = Friend::where('friend_id', $request->user_id)->where('user_id',$request->friend_id )->first();
+        $requests = Friend::getFriends($uuid);
 
-        $request->delete();
-        $requester->delete();
+        $requests[0]->delete();
+        $requests[1]->delete();
 
         $this->alert('success', 'Request rejected successfully!');
 

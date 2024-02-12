@@ -1,6 +1,7 @@
 @props(
     [
         'name',
+        'uuid'
     ]
 )
 <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
@@ -19,8 +20,9 @@
                             class="fa-solid fa-user mx-2"></i> Profile</li>
                     <li class="py-3 px-4 text-yellow-400 flex items-center hover:bg-black/20"><i
                             class="fa-solid mx-2 fa-volume-xmark"></i>Mute</li>
-                    <li class="py-3 px-4 text-red-400 flex items-center hover:bg-black/20"> <i
-                            class="fa-solid  fa-user-minus mx-2"></i> Remove</li>
+                    <li class="py-3 px-4 text-red-400  hover:bg-black/20"> <button class="flex items-center" wire:click="removeFriend('{{ $uuid }}')"><i
+                        class="fa-solid  fa-user-minus mx-2"></i> Remove</li>
+                    </button>
                 </ul>
             </div>
         </span>

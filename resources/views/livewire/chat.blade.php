@@ -26,7 +26,7 @@
         {{-- Listing friends --}}
         @if(count($friends) > 0)
             @foreach ($friends as $friend)
-                <x-chat.user-list-row name="{{ $friend->user_name }}"/>
+                <x-chat.user-list-row name="{{ $friend->user_name }}" uuid="{{ $friend->getFriendUuid()->first()->uuid }}"/>
             @endforeach
         @else
         {{-- When user has no friends --}}

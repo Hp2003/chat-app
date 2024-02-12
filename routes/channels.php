@@ -20,3 +20,8 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('test', function(){
     return 'connected';
 });
+Broadcast::channel('friend-request-recived', function(){
+    return 'connected';
+});
+
+
