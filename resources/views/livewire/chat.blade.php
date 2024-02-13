@@ -1,7 +1,7 @@
 <div class="w-full h-screen  flex justify-center items-center">
     <input type="hidden" name="" id="friend-room-ids" value=@json($friendRoomIds)>
     <div class="w-full md:w-[95%] h-[700px] bg-[#152330]/90 flex  text-white">
-        <div class="users border w-1/3 h-full overflow-x-hidden overflo-auto" id="userList">
+        <div class="users border w-1/3 h-full overflow-x-hidden overflo-auto animate-slideOut" id="userList">
             <div class="flex justify-between bg-[#162838] ">
                 <div class="w-full p-5 flex items-center justify-around space-x-5">
                     <div class="flex items-center space-x-2">
@@ -27,7 +27,7 @@
             {{-- Listing friends --}}
             @if (!is_null($friends) && count($friends) > 0)
                 @foreach ($friends as $friend)
-                    <livewire:chat.user-list-row index="{{ $loop->index }}"
+                    <livewire:chat.user-list-row index="{{ $loop->index }}" :wire:key="$friend->uuid"
                         uuid="{{ $friend->getFriendInstance()->first()->uuid }}" name="{{ $friend->user_name }}"
                         roomId='{{ $friend->getFriendInstance()->first()->room_id }}' />
                 @endforeach
@@ -40,7 +40,7 @@
                 </div>
             @endif
         </div>
-        {{-- main messages section --}}
-        <livewire:chat.chat-message-part key="{{ now() }}" uuid="{{ $selectedUser }}" />
+            {{-- main messages section --}}
+            <livewire:chat.chat-message-part key="{{ now() }}" uuid="{{ $selectedUser }}" />
     </div>
 </div>

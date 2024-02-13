@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Log;
 
 #[Title('Chat')]
 #[Layout('components.layouts.app')]

@@ -25,8 +25,8 @@ function toggleUserList(e){
     let listContainer = document.querySelector('#userList');
 
     if(listContainer.classList.contains('animate-slideIn')){
-        listContainer.classList.add('animate-slideOut');
         listContainer.classList.remove('animate-slideIn');
+        listContainer.classList.add('animate-slideOut');
         listContainer.style.width = '0%';
     }else{
         listContainer.classList.remove('animate-slideOut');

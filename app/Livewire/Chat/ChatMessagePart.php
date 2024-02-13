@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class ChatMessagePart extends Component
 {
     public $uuid = '';
-    public $friend = '';
+    public $friend;
     public $selectedUser = [];
     public $chats = [];
 
@@ -27,11 +27,10 @@ class ChatMessagePart extends Component
         if($uuid){
             $this->friend = Friend::where('uuid', $uuid)->first();
             $this->selectedUser = User::find($this->friend->friend_id);
+            $this->dispatch('join-channel', $this->friend->room_id,$this->selectedUser->user_name );
 
             $this->getUserMessages(0);
-
         }
-
     }
 
     /**
