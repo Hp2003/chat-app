@@ -31,6 +31,5 @@ Broadcast::channel('friends-private-rooom.{roomId}', function(User $user, string
     if($friends){
         return [$friends->room_id];
     }
-    // return true;
 });
 

@@ -29,7 +29,7 @@
                 @foreach ($friends as $friend)
                     <livewire:chat.user-list-row index="{{ $loop->index }}" :wire:key="$friend->uuid"
                         uuid="{{ $friend->getFriendInstance()->first()->uuid }}" name="{{ $friend->user_name }}"
-                        roomId='{{ $friend->getFriendInstance()->first()->room_id }}' />
+                        roomId='{{ $friend->getFriendInstance()->first()->room_id }}' index="{{ $loop->index }}" />
                 @endforeach
             @else
                 {{-- When user has no friends --}}

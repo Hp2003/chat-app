@@ -11,17 +11,19 @@ class UserListRow extends Component
     public $name;
     public $uuid;
     public $isOnline = false;
+    public $index = 0;
 
     public function render()
     {
         return view('livewire.chat.user-list-row');
     }
 
-    public function mount($roomId, $name, $uuid)
+    public function mount($roomId, $name, $uuid, $index)
     {
         $this->roomId = $roomId;
         $this->name = $name;
         $this->uuid = $uuid;
+        $this->index = $index;
     }
 
     public function getListeners()
@@ -36,6 +38,7 @@ class UserListRow extends Component
     public function checkOnlineUser($data)
     {
         if(count($data) > 1){
+            $this->dispatch('user-online', $this->roomId, $this->index);
             $this->isOnline = true;
         }else{
             $this->isOnline = false;
@@ -44,8 +47,8 @@ class UserListRow extends Component
 
     public function joinRoom($data)
     {
+        $this->dispatch('user-online', $this->roomId, $this->index);
         $this->isOnline = true;
-
     }
 
     public function leaveRoom($data)

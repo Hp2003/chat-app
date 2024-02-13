@@ -1,17 +1,16 @@
-@props(['uuid', 'name', 'roomId', 'index'])
 <div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
-    <div class="flex items-center space-x-5">
-        <div class="p-5 rounded-full bg-red-500 relative">
+    <div class="flex items-center relative space-x-5">
+        <div class="p-5 rounded-full  bg-red-500 relative">
             <input type="hidden" name="" value="{{ $roomId }}" class="user-room-id">
             @if ($isOnline)
-                <div
-                    class="w-[12px] h-[12px] bg-green-500 rounded-full  absolute online-indicator -right-1 bottom-1 ">
+                <div class="w-[12px] h-[12px] bg-green-500 rounded-full  absolute online-indicator -right-1 bottom-1 ">
                 </div>
             @endif
         </div>
         <button wire:click="selectUser('{{ $uuid }}')">
             <h4 class="whitespace-nowrap">{{ $name }}</h4>
         </button>
+        <p class="text-[12px] hidden typing-text-container text-green-500">Typing...</p>
     </div>
     <div class="flex flex-nowrap user-row">
         <i class="fa-solid fa-thumbtack py-4 px-2"></i>
@@ -37,11 +36,15 @@
 
 
 @script
-<script>
-    $wire.on('user-online', (e)=>{
-        console.log('hello, world', e);
-    })
-</script>
+    <script>
+        $wire.on('user-online', (e) => {
+            const channel = window.Echo.join('friends-private-rooom.' + e[0]);
+            channel.listenForWhisper('typing', (event) => {
+                document.querySelectorAll('.typing-text-container')[e[1]].classList.remove('hidden');
+            })
+            channel.listenForWhisper('stopped-typing', (event) => {
+                document.querySelectorAll('.typing-text-container')[e[1]].classList.add('hidden');
+            })
+        })
+    </script>
 @endscript
-
-
