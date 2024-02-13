@@ -9,6 +9,7 @@ use App\Livewire\User\FriendRequestList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Friend;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/', function () {
 });
 Route::middleware(['auth'])->group(function(){
     Route::get('chat', Chat::class);
+
     Route::get('profile', Profile::class)->name('profile');
     Route::get('add_friend', AddFriendForm::class)->name('add-friend');
     Route::get('friend_requests', FriendRequestList::class)->name('friend-requests');

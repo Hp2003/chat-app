@@ -14,6 +14,7 @@ class Friend extends Model
         'user_id',
         'friend_id',
         'status',
+        'room_id',
     ];
 
     /*

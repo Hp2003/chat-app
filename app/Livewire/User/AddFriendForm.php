@@ -50,12 +50,14 @@ class AddFriendForm extends Component
     public function sendRequest($uuid)
     {
         $user = User::where('uuid', $uuid)->first();
+        $roomId = Str::uuid()->toString();
 
         $result = Friend::create([
             'user_id' => auth()->user()->id,
             'friend_id' => $user->id,
             'uuid' => Str::uuid()->toString(),
             'status' => 'REQUESTED',
+            'room_id' => $roomId,
         ]);
 
         $result2 = Friend::create([
@@ -63,6 +65,7 @@ class AddFriendForm extends Component
             'friend_id' => auth()->user()->id,
             'uuid' => Str::uuid()->toString(),
             'status' => 'PENDING',
+            'room_id' => $roomId,
         ]);
 
         if ($result && $result2) {

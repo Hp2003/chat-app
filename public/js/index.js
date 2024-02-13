@@ -5,7 +5,7 @@ function showPassword(e){
 
     let input = document.querySelector('#password');
     let button = document.querySelector('.eye-button');
-    console.log(input)
+    // console.log(input)
     if(button.classList.contains('fa-eye')){
         button.classList.remove('fa-eye')
         button.classList.add('fa-eye-slash')
@@ -26,8 +26,8 @@ function toggleUserList(e){
 
     if(listContainer.classList.contains('animate-slideIn')){
         listContainer.classList.add('animate-slideOut');
-        listContainer.style.width = '0%';
         listContainer.classList.remove('animate-slideIn');
+        listContainer.style.width = '0%';
     }else{
         listContainer.classList.remove('animate-slideOut');
         listContainer.classList.add('animate-slideIn');

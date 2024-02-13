@@ -7,7 +7,9 @@ use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 #[Title('Chat')]
 #[Layout('components.layouts.app')]
@@ -19,11 +21,14 @@ class Chat extends Component
     public $requestCount = 0;
     public $user ;
     public $selectedUser ;
+    public $friendRoomIds = [];
 
     public function render()
     {
         $friends = $this->user->getFriends($this->search, ['FRIENDS'])->get();
         $this->requestCount = $this->user->getFriends('', ['PENDING'])->count();
+        $friendRoomIds  = Friend::where('user_id', auth()->user()->id)->where('status', 'FRIENDS')->get();
+        $this->friendRoomIds = Arr::pluck($friendRoomIds, ['room_id']);
 
         return view('livewire.chat', compact('friends'));
     }
@@ -55,7 +60,7 @@ class Chat extends Component
     {
         $this->user = $user->find(auth()->user()->id);
     }
-
+    #[On('userSelected')]
     public function selectUser($uuid)
     {
         $this->selectedUser = $uuid;

@@ -12,7 +12,7 @@ class ChatMessagePart extends Component
 {
     public $uuid = '';
     public $friend = '';
-    public $selectedUser;
+    public $selectedUser = [];
     public $chats = [];
 
     public function render()
@@ -40,7 +40,7 @@ class ChatMessagePart extends Component
      */
     public function getUserMessages($offset)
     {
-        $messages = Message::where('user_id', auth()->user()->id)->where('sent_to_user_id', $this->selectedUser->id)->limit(25)->offset($offset * 25);
+        $messages = Message::where('user_id', auth()->user()->id)->where('sent_to_user_id', $this->selectedUser->id)->orderByDesc('created_at')->limit(25)->offset($offset * 25);
         array_push($this->chats,  ...$messages->get()->toArray());
     }
 }

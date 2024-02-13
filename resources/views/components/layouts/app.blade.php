@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Page Title' }}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
@@ -141,9 +141,11 @@
 
 <body class="roboto-medium">
     {{ $slot }}
-    @livewireScripts
+    {{-- @livewireScripts --}}
+    @livewireScriptConfig
     <script src="https://kit.fontawesome.com/e18904f022.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/websocket-communication.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <x-livewire-alert::scripts />

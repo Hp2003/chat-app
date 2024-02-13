@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $friends;
     }
 
-    public function getFriendUuid()
+    public function getFriendInstance()
     {
         return $this->hasOne(Friend::class, 'friend_id', $this->user_id)->where('user_id', auth()->user()->id);
     }

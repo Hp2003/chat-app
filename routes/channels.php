@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Log;
 
@@ -24,5 +26,10 @@ Broadcast::channel('test', function(){
 Broadcast::channel('friend-request-recived.{id}', function($id){
     return auth()->user()->id === $id->id;
 });
-
+Broadcast::channel('friends-private-rooom.{roomId}', function(User $user, string $roomId){
+    $friends = Friend::where('room_id', $roomId)->where('user_id', auth()->user()->id)->first();
+    if($friends){
+        return [$friends->room_id];
+    }
+});
 

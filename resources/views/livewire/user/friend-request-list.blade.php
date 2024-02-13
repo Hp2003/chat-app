@@ -10,7 +10,7 @@
             {{-- friends --}}
             @if(count($requests) > 0)
                 @foreach ($requests as $request)
-                    <x-user.friend-request-user-row name="{{ $request->user_name }}" uuid="{{ $request->getFriendUuid()->first()->uuid }}" />
+                    <x-user.friend-request-user-row name="{{ $request->user_name }}" uuid="{{ $request->getFriendInstance()->first()->uuid }}" />
                 @endforeach
             @else
                 <div class="flex h-full justify-center items-center">
