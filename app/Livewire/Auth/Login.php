@@ -8,6 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Str;
 
 #[Title('Sign in')]
 #[Layout('components.layouts.app')]
@@ -36,6 +37,11 @@ class Login extends Component
         $auth = Auth::attempt(['email' => $this->email, 'password' => $this->password]);
 
         if($auth){
+            // setting random uuid to validate websocket requests it'll generate new on every login
+            $secretToken = Str::uuid();
+            session()->put('secret_token', $secretToken);
+            session()->put('user', auth()->user());
+
             $this->flash('success', "Welcome " . Auth::user()->user_name . '!', [], '/chat');
             return $this->redirect('chat');
         }else{

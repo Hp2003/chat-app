@@ -44,3 +44,8 @@
             <livewire:chat.chat-message-part key="{{ now() }}" uuid="{{ $selectedUser }}" />
     </div>
 </div>
+@push('script')
+    <script>
+        window.secretToken = @json(session()->get('secret_token'));
+    </script>
+@endpush

@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Friend;
+use App\Websockets\SendMessageSocketHandler;
+use App\Websockets\SocketHandler;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +45,11 @@ Route::middleware(['auth'])->group(function(){
 });
 Route::get('login', Login::class)->name('login');
 Route::get('register', Register::class)->name('register');
+
+
+// websocket routes
+Route::get('/ws', function(){
+    Log::info('got req');
+});
+
+WebSocketsRouter::websocket('/send-message', SendMessageSocketHandler::class);

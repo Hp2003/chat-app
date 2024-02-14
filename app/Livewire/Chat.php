@@ -26,6 +26,7 @@ class Chat extends Component
 
     public function render()
     {
+        dump(session()->getId());
         $friends = $this->user->getFriends($this->search, ['FRIENDS'])->get();
         $this->requestCount = $this->user->getFriends('', ['PENDING'])->count();
         $friendRoomIds  = Friend::where('user_id', auth()->user()->id)->where('status', 'FRIENDS')->get();
