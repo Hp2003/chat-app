@@ -7,16 +7,19 @@
                         class="fa-solid mx-2 fa-address-book p-3 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
             </li>
             {{-- Rooms --}}
-            <li>
-                <div class=" px-4 py-2 text-transparent mx-2 bg-slate-700/80 rounded-2xl text-3xl hover:bg-green-500 cursor-pointer bg-cover"
-                    style="background-image:url('https://images.unsplash.com/photo-1682686581740-2c5f76eb86d1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                    a</div>
-            </li>
-            <li><i
-                    class="fa-solid fa-plus p-3 mx-2 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i>
-            </li>
+            @foreach ($rooms as $room)
+                <li>
+                    <div class=" px-4 py-2 text-transparent mx-2 bg-slate-700/80 rounded-2xl text-3xl hover:bg-green-500 cursor-pointer bg-cover"
+                        style="background-image:url({{ asset($room->room_img) }})">
+                        a</div>
+                </li>
+            @endforeach
+            <li><a href="{{ route('create-room') }}" wire:navigate><i
+                class="fa-solid fa-plus p-3 mx-2 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
             <li><i
                     class="fa-solid fa-gear p-3 mx-2 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i>
+            </li>
+
             </li>
             <li><a href="{{ route('add-friend') }}" wire:navigate><i
                         class="fa-solid fa-user-plus py-4 p-3 mx-2 bg-slate-700/80 rounded-2xl text-2xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
@@ -70,6 +73,9 @@
             @break
             @case('profile')
                 <livewire:user.profile />
+            @break
+            @case('create-room')
+                <livewire:room.create-room-form />
             @break
 
             @default

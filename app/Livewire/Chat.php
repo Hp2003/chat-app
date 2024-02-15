@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Friend;
+use App\Models\Room;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -33,8 +34,10 @@ class Chat extends Component
         $this->requestCount = $this->user->getFriends('', ['PENDING'])->count();
         $friendRoomIds  = Friend::where('user_id', auth()->user()->id)->where('status', 'FRIENDS')->get();
         $this->friendRoomIds = Arr::pluck($friendRoomIds, ['room_id']);
+        $rooms = Room::where('user_id', auth()->user()->id)->get();
+        // dd($rooms->get()->toArray());
 
-        return view('livewire.chat', compact('friends'));
+        return view('livewire.chat', compact('friends', 'rooms'));
     }
 
     public function removeFriend($uuid)

@@ -185,6 +185,10 @@
         input[type='file'] {
             opacity: 0;
         }
+
+        input[type=checkbox] {
+            display: none;
+        }
     </style>
 </head>
 
