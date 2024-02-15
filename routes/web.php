@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/', Chat::class);
     Route::get('/chat', Chat::class)->name('chat');
 
-    Route::get('profile', Profile::class)->name('profile');
+    Route::get('profile', Chat::class)->name('profile');
     Route::get('add_friend', Chat::class)->name('add-friend');
     Route::get('friend_requests', Chat::class)->name('friend-requests');
     Route::get('logout', function(Request $request){

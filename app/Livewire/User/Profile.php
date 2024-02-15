@@ -42,11 +42,11 @@ class Profile extends Component
         $user = User::find(auth()->user()->id);
         $user->name = $this->name;
         $user->user_name = $this->userName;
-        $user->profile_img = $name;
 
         if ($user->profile_img) {
             Storage::delete([$user->profile_img]);
         }
+        $user->profile_img = $name;
         $user->description = $this->description;
         $user->save();
     }

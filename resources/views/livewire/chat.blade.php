@@ -3,7 +3,7 @@
     <div class="w-[80px] overflow-auto h-screen user-options bg-slate-400/20 text-white "
         style="overflow: -webkit-scrollbar:none">
         <ul class="flex flex-col items-center   space-y-5  pt-5">
-            <li class="row "><a href="/" wire:navigate><i
+            <li class="row "><a href="{{ route('profile') }}" wire:navigate><i
                         class="fa-solid mx-2 fa-address-book p-3 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
             </li>
             {{-- Rooms --}}
@@ -68,9 +68,11 @@
             @case('friend-requests')
                 <livewire:user.friend-request-list />
             @break
+            @case('profile')
+                <livewire:user.profile />
+            @break
 
             @default
-                <livewire:user.profile />
             @break
         @endswitch
 
