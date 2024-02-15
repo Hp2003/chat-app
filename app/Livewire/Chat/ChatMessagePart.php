@@ -74,6 +74,7 @@ class ChatMessagePart extends Component
 
         if ($checkAreTehyFriends) {
             $newMsg = Message::create(['uuid' => $uuid, 'message' => $this->message, 'user_id' => $from, 'sent_to_user_id' => $to, 'room_uuid' => $this->friend->room_id]);
+            array_push($this->chats, $newMsg->toArray());
             broadcast(new MessageSentEvent($this->roomId, $newMsg->id))->toOthers();
             $this->message = '';
             $this->alert('success', 'Message sent');
@@ -119,5 +120,22 @@ class ChatMessagePart extends Component
         $message = Message::find($data['message'])->toArray();
 
         array_push($this->chats, $message);
+    }
+
+    public function deleteMessage($uuid)
+    {
+        $message = Message::where('uuid', $uuid)->where('user_id', auth()->user()->id)->first();
+        if($message){
+            $this->alert('warning', 'Failed deleting message');
+        }
+        $message->delete();
+
+        $messageCollection = collect($this->chats);
+        $messageCollection = $messageCollection->filter(function($chat) use ($message){
+            return $chat['id'] !== $message->id;
+        });
+
+        $this->chats = $messageCollection->toArray();
+        $this->alert('success', 'Message deleted successfully');
     }
 }

@@ -15,7 +15,7 @@
                 <x-chat.friend-message message="{{ $chat['message'] }}"
                     time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-y h:i a') }}" />
             @else
-                <x-chat.my-message message="{{ $chat['message'] }}"
+                <x-chat.my-message message="{{ $chat['message'] }}" id="{{ $chat['uuid'] }}"
                     time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-Y h:i a') }}" />
             @endif
         @endforeach
