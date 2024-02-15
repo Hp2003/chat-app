@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
+use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ChatMessagePart extends Component
 {
+    use LivewireAlert;
+
     public $uuid = '';
     public $friend;
     public $selectedUser = [];
@@ -44,5 +48,19 @@ class ChatMessagePart extends Component
     {
         $messages = Message::where('user_id', auth()->user()->id)->where('sent_to_user_id', $this->selectedUser->id)->orderByDesc('created_at')->limit(25)->offset($offset * 25);
         array_push($this->chats,  ...$messages->get()->toArray());
+    }
+
+    public function sendMessage()
+    {
+        $uuid = Str::uuid()->toString();
+        $from = auth()->user()->id;
+        $to = $this->selectedUser->id;
+        $checkAreTehyFriends = Friend::where('user_id', $from)->where('friend_id', $to)->first();
+
+        if($checkAreTehyFriends){
+            Message::create(['uuid' => $uuid, 'message' => $this->message, 'user_id' => $from, 'sent_to_user_id' => $to]);
+        }else{
+            $this->alert('warning', 'Message sending failed');
+        }
     }
 }

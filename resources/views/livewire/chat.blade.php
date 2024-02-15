@@ -46,17 +46,19 @@
     @php
     // check if livewires update route is called or not
     // if called then assigning old route
+        $roomId = null;
+        $roomId = request()->query('id');
         $routeName = request()->route()->getName();
         if($routeName  === 'livewire.update'){
             $routeName = app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+            $roomId = app('request')->create(URL::previous())->query('id');
         }
-        $roomId = app('request')->create(URL::previous())->query('id');
     @endphp
         @switch($routeName)
             @case('chat')
                 {{-- main messages section --}}
                 {{-- sending id if refresh occures --}}
-                <livewire:chat.chat-message-part key="{{ now() }}" id="{{ $roomId }}"/>
+                <livewire:chat.chat-message-part key="{{ now() }}" id="{{$roomId }}"/>
             @break
 
             @case('add-friend')
@@ -68,7 +70,6 @@
             @break
 
             @default
-                {{ dump(request()->route()->getName()) }}
             @break
         @endswitch
 

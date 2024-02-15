@@ -1,7 +1,7 @@
 <div class=" h-screen text-white flex flex-col bg-slate-400/20 w-full relative">
     <div class="w-full p-2 flex items-center bg-black/40">
         <div class="p-4 bg-red-500 rounded-full relative">
-            <div class="w-[10px] h-[10px] bg-green-500 absolute -right-1 bottom-1 rounded-full online-indicator">
+            <div class="w-[10px] h-[10px] bg-green-500 absolute hidden -right-1 bottom-1 rounded-full online-indicator" id="online-user-message-part">
             </div>
         </div>
         <div class="p-4 text-sm ">{{ !empty($selectedUser['user_name']) ? $selectedUser['user_name'] : '' }}</div>
@@ -26,11 +26,11 @@
     {{--
         --- message input
     --}}
-    <div class="flex items-center bg-black/50  p-5">
+    <form wire:submit="sendMessage()" class="flex items-center bg-black/50  p-5">
         <input type="text" name="" id="" class="w-full mx-5 py-1 px-4 bg-slate-500 rounded-sm message-box" wire:model="message"
             placeholder="Enter message...">
         <button class="bg-slate-500 rounded-sm py-1 px-4"><i class="fa-solid fa-paper-plane"></i></button>
-    </div>
+    </form>
 </div>
 @script
     <script>
@@ -47,7 +47,17 @@
                         name: event[1],
                     });
                 }
-
+            })
+            channel.here((data)=>{
+                if(data.length > 1 ){
+                    document.querySelector('#online-user-message-part').classList.remove('hidden');
+                }
+            })
+            channel.joining((data)=>{
+                document.querySelector('#online-user-message-part').classList.remove('hidden');
+            })
+            channel.leaving(()=>{
+                document.querySelector('#online-user-message-part').classList.add('hidden');
             })
             channel.listenForWhisper('typing', (e) => {
                 console.log('tying');
@@ -61,7 +71,6 @@
                 document.querySelector('.typing-main').classList.add('hidden');
                 document.querySelector('.typing-text').innerText = '';
             })
-
         })
     </script>
 @endscript
