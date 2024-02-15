@@ -15,7 +15,8 @@ class Message extends Model
         'uuid',
         'message',
         'sent_to_user_id',
-        'user_id'
+        'user_id',
+        'room_uuid',
     ];
 
 

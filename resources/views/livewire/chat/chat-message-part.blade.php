@@ -11,12 +11,12 @@
     --}}
     <div class="h-full overflow-scroll ">
         @foreach ($chats as $chat)
-            @if (!$chat['user_id'] === auth()->user()->id)
+            @if ($chat['user_id'] !== auth()->user()->id)
                 <x-chat.friend-message message="{{ $chat['message'] }}"
-                    time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-y h:i sa') }}" />
+                    time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-y h:i a') }}" />
             @else
                 <x-chat.my-message message="{{ $chat['message'] }}"
-                    time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-Y h:i A') }}" />
+                    time="{{ Carbon\Carbon::parse($chat['created_at'])->format('d-m-Y h:i a') }}" />
             @endif
         @endforeach
     </div>
@@ -27,7 +27,7 @@
         --- message input
     --}}
     <form wire:submit="sendMessage()" class="flex items-center bg-black/50  p-5">
-        <input type="text" name="" id="" class="w-full mx-5 py-1 px-4 bg-slate-500 rounded-sm message-box" wire:model="message"
+        <input type="text" name="" id="" class="w-full mx-5 py-1 px-4 bg-slate-500 rounded-sm message-box" value="{{ $message }}" wire:model="message"
             placeholder="Enter message...">
         <button class="bg-slate-500 rounded-sm py-1 px-4"><i class="fa-solid fa-paper-plane"></i></button>
     </form>
@@ -48,17 +48,10 @@
                     });
                 }
             })
-            channel.here((data)=>{
-                if(data.length > 1 ){
-                    document.querySelector('#online-user-message-part').classList.remove('hidden');
-                }
+            channel.listen('MessageSentEvent', (e)=>{
+                console.log('message');
             })
-            channel.joining((data)=>{
-                document.querySelector('#online-user-message-part').classList.remove('hidden');
-            })
-            channel.leaving(()=>{
-                document.querySelector('#online-user-message-part').classList.add('hidden');
-            })
+
             channel.listenForWhisper('typing', (e) => {
                 console.log('tying');
                 document.querySelector('.typing-main').classList.remove('hidden');

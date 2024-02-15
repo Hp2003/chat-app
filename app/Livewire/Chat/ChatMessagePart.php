@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use App\Events\MessageSentEvent;
 use App\Models\Message;
 use App\Models\Friend;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Facades\Cache;
 
 class ChatMessagePart extends Component
 {
@@ -21,9 +23,15 @@ class ChatMessagePart extends Component
     public $selectedUser = [];
     public $chats = [];
     public $message;
+    public $isOnline;
+    public $roomId;
 
     public function render()
     {
+        if (Cache::get($this->roomId)) {
+            $this->isOnline = Cache::get($this->roomId);
+        }
+
         return view('livewire.chat.chat-message-part');
     }
 
@@ -31,10 +39,11 @@ class ChatMessagePart extends Component
     {
         $this->uuid = $id;
 
-        if($this->uuid){
+        if ($this->uuid) {
             $this->friend = Friend::where('uuid', $this->uuid)->first();
+            $this->roomId = $this->friend->room_id;
             $this->selectedUser = User::find($this->friend->friend_id);
-            $this->dispatch('join-channel', $this->friend->room_id,$this->selectedUser->user_name );
+            $this->dispatch('join-channel', $this->friend->room_id, $this->selectedUser->user_name);
 
             $this->getUserMessages(0);
         }
@@ -46,21 +55,69 @@ class ChatMessagePart extends Component
      */
     public function getUserMessages($offset)
     {
-        $messages = Message::where('user_id', auth()->user()->id)->where('sent_to_user_id', $this->selectedUser->id)->orderByDesc('created_at')->limit(25)->offset($offset * 25);
+        $messages = Message::where('room_uuid', $this->friend->room_id)
+                    ->orderBy('created_at')
+                    ->limit(25)
+                    ->offset($offset * 25);
         array_push($this->chats,  ...$messages->get()->toArray());
     }
 
     public function sendMessage()
     {
+        if(!strlen($this->message) > 0){
+            return 0;
+        }
         $uuid = Str::uuid()->toString();
         $from = auth()->user()->id;
         $to = $this->selectedUser->id;
         $checkAreTehyFriends = Friend::where('user_id', $from)->where('friend_id', $to)->first();
 
-        if($checkAreTehyFriends){
-            Message::create(['uuid' => $uuid, 'message' => $this->message, 'user_id' => $from, 'sent_to_user_id' => $to]);
-        }else{
+        if ($checkAreTehyFriends) {
+            $newMsg = Message::create(['uuid' => $uuid, 'message' => $this->message, 'user_id' => $from, 'sent_to_user_id' => $to, 'room_uuid' => $this->friend->room_id]);
+            broadcast(new MessageSentEvent($this->roomId, $newMsg->id))->toOthers();
+            $this->message = '';
+            $this->alert('success', 'Message sent');
+        } else {
             $this->alert('warning', 'Message sending failed');
         }
+    }
+
+    public function getListeners()
+    {
+        return [
+            "echo-presence:friends-private-rooom.$this->roomId,here" => "checkOnlineUser",
+            "echo-presence:friends-private-rooom.$this->roomId,joining" => "joinRoom",
+            "echo-presence:friends-private-rooom.$this->roomId,leaving" => "leaveRoom",
+            "echo-presence:friends-private-rooom.$this->roomId,MessageSentEvent" => "messageRecived",
+        ];
+    }
+
+    public function checkOnlineUser($data)
+    {
+        if (count($data) > 1) {
+            $this->isOnline = true;
+            Cache::put($this->roomId, true);
+        } else {
+            $this->isOnline = false;
+        }
+    }
+
+    public function joinRoom($data)
+    {
+        Cache::put($this->roomId, true);
+        $this->isOnline = true;
+    }
+
+    public function leaveRoom($data)
+    {
+        $this->isOnline = false;
+        Cache::put($this->roomId, false);
+    }
+
+    public function messageRecived($data)
+    {
+        $message = Message::find($data['message'])->toArray();
+
+        array_push($this->chats, $message);
     }
 }
