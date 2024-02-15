@@ -70,6 +70,7 @@
             @break
 
             @default
+                <livewire:user.profile />
             @break
         @endswitch
 
