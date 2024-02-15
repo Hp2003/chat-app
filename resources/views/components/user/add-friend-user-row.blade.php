@@ -4,7 +4,7 @@
     'uuid'
 ])
 <div class=" w-full">
-    <div class=" flex justify-between space-x-1 p-2 border-b border-slate-800 hover:bg-slate-900/40  bg-slate-800/50 ">
+    <div class=" flex justify-between space-x-1 p-2 border-b border-slate-800 hover:bg-slate-900/40  bg-slate-700/40 rounded-lg ">
         <div class="flex items-center space-x-5">
             <div class="p-5 rounded-full bg-red-500"></div>
             <h4 class="whitespace-nowrap">{{ $name }}</h4>

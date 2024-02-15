@@ -5,8 +5,10 @@ namespace App\Livewire\Chat;
 use App\Models\Message;
 use App\Models\Friend;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Computed;
 
 class ChatMessagePart extends Component
 {
@@ -14,18 +16,19 @@ class ChatMessagePart extends Component
     public $friend;
     public $selectedUser = [];
     public $chats = [];
+    public $message;
 
     public function render()
     {
         return view('livewire.chat.chat-message-part');
     }
 
-    public function mount($uuid)
+    public function mount(Request $request, $id = null)
     {
-        $this->uuid = $uuid;
+        $this->uuid = $id;
 
-        if($uuid){
-            $this->friend = Friend::where('uuid', $uuid)->first();
+        if($this->uuid){
+            $this->friend = Friend::where('uuid', $this->uuid)->first();
             $this->selectedUser = User::find($this->friend->friend_id);
             $this->dispatch('join-channel', $this->friend->room_id,$this->selectedUser->user_name );
 

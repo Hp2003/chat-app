@@ -6,16 +6,11 @@ use App\Events\FriendRequestSent;
 use App\Models\Friend;
 use App\Models\User;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-
-#[Title('Add Friend')]
-#[Layout('components.layouts.app')]
 class AddFriendForm extends Component
 {
     use LivewireAlert;

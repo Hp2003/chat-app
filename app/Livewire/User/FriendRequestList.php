@@ -4,13 +4,9 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use App\Models\Friend;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-#[Title('Friend Requests')]
-#[Layout('components.layouts.app')]
 class FriendRequestList extends Component
 {
     use LivewireAlert;

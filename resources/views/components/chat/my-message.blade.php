@@ -2,22 +2,23 @@
     'message',
     'time',
 ])
-<div class="grid justify-end my-2">
-    <p class="py-3 px-4 bg-blue-600 inline-block m-5 my-1 rounded-tl-md rounded-tr-md rounded-bl-md  text-lg">
-        {{ $message }}
-    </p>
-    <div class=" flex group items-center text-[12px] mr-5 row text-slate-400">
-        <i class=" mr-3 fa-solid fa-list-ul"></i>
-        <div class="group-hover:block hidden m-1 ">
-            <ul class="bg-white/30 absolute rounded-sm ">
-                <li class="py-3 px-4  flex items-center hover:bg-black/20 hover:text-white"><i class="fa-solid fa-share mx-2"></i> Replay
-                </li>
-                <li class="py-3 px-4  flex items-center hover:bg-black/20 hover:text-white"><i
-                        class="fa-solid fa-share-from-square mx-2"></i>Forward</li>
-                <li class="py-3 px-4 text-red-500 flex items-center hover:bg-black/20 hover:text-red-600"> <i
-                        class="fa-solid  fa-trash mx-2"></i> Delete</li>
-            </ul>
-        </div>
-        {{ $time }}
+<div class="w-full flex  py-3 px-2 items-centerspace-x-5">
+    <div class="flex w-full flex-col space-y-2 mr-5">
+        <span
+            class=" py-3 px-5 bg-slate-500/80 rounded-tr-lg rounded-bl-lg ml-4 rounded-tl-lg self-end ">{{ $message }}</span>
+        <span class="text-[10px] self-end flex text-slate-400 ml-5 ">
+            <div class="">
+                <i class="mx-5 fa fa-list"></i>
+                <ul class=" absolute chat-options hidden  mr-5 flex-col">
+                    <li class="py-3 bg-black px-5 flex items-center hover:bg-slate-700"><i
+                            class="mr-3 ml-1 fa fa-pencil"></i>Edit</li>
+                    <li class="py-3 bg-black px-5 flex items-center hover:bg-slate-700"><i
+                            class="mr-3 ml-1 fa-solid fa-share"></i>Replay</li>
+                    <li class="py-3 bg-black px-5 flex items-center hover:bg-slate-700"><i
+                            class="mr-3 ml-1 fa fa-user-xmark"></i>Remove</li>
+                </ul>
+            </div>
+            <p>{{ $time }}</p>
+        </span>
     </div>
 </div>

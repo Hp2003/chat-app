@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -15,6 +16,10 @@ class UserListRow extends Component
 
     public function render()
     {
+        // getting from cahce when component re-renders
+        if(Cache::get($this->roomId)){
+            $this->isOnline = Cache::get($this->roomId);
+        }
         return view('livewire.chat.user-list-row');
     }
 
@@ -40,6 +45,7 @@ class UserListRow extends Component
         if(count($data) > 1){
             $this->dispatch('user-online', $this->roomId, $this->index);
             $this->isOnline = true;
+            Cache::put($this->roomId , true);
         }else{
             $this->isOnline = false;
         }
@@ -48,12 +54,14 @@ class UserListRow extends Component
     public function joinRoom($data)
     {
         $this->dispatch('user-online', $this->roomId, $this->index);
+        Cache::put($this->roomId, true);
         $this->isOnline = true;
     }
 
     public function leaveRoom($data)
     {
         $this->isOnline = false;
+        Cache::put($this->roomId, false);
     }
 
     public function selectUser($uuid)

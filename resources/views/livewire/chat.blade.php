@@ -1,51 +1,155 @@
-<div class="w-full h-screen  flex justify-center items-center">
-    <input type="hidden" name="" id="friend-room-ids" value=@json($friendRoomIds)>
-    <div class="w-full md:w-[95%] h-[700px] bg-[#152330]/90 flex  text-white">
-        <div class="users border w-1/3 h-full overflow-x-hidden overflo-auto animate-slideOut" id="userList">
-            <div class="flex justify-between bg-[#162838] ">
-                <div class="w-full p-5 flex items-center justify-around space-x-5">
-                    <div class="flex items-center space-x-2">
-                        <a wire:navigate href="{{ route('profile') }}" class="p-5 rounded-full bg-cover"
-                            style="background-image: url('https://images.unsplash.com/photo-1707033081487-d5f5e3e5651c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></a>
-                        <h4 class="whitespace-nowrap">{{ auth()->user()->user_name }}</h4>
-                    </div>
-                    <a class="py-2 bg-slate-500/90 px-5 relative" href="{{ route('add-friend') }}">
-                        @if ($requestCount > 0)
-                            <p class="absolute -right-3 bg-red-500 rounded-full text-sm py-1 px-2 -top-3">
-                                {{ $requestCount }}
-                            </p>
-                        @endif
-                        <i class="fa-solid fa-user "></i>
-                    </a>
-                </div>
-            </div>
-            <div class="p-4 flex justify-between ">
-                <input type="text" class="bg-slate-500 w-[90%] rounded-md px-3 py-1"
-                    wire:model.live.delay.shorter="search" placeholder="search..." name="" id="">
-                <i class="fa-solid fa-filter p-3"></i>
-            </div>
-            {{-- Listing friends --}}
-            @if (!is_null($friends) && count($friends) > 0)
-                @foreach ($friends as $friend)
-                    <livewire:chat.user-list-row index="{{ $loop->index }}" :wire:key="$friend->uuid"
-                        uuid="{{ $friend->getFriendInstance()->first()->uuid }}" name="{{ $friend->user_name }}"
-                        roomId='{{ $friend->getFriendInstance()->first()->room_id }}' index="{{ $loop->index }}" />
-                @endforeach
-            @else
-                {{-- When user has no friends --}}
-                <div class=" flex justify-center ">
-                    <a href="{{ route('add-friend') }}" wire:navigate
-                        class="py-2 px-5 bg-green-500 rounded-md text-white hover:bg-green-600 active:bg-green-700"><i
-                            class="fa-solid fa-plus"></i> Add Friends </a>
-                </div>
-            @endif
-        </div>
-            {{-- main messages section --}}
-            <livewire:chat.chat-message-part key="{{ now() }}" uuid="{{ $selectedUser }}" />
+<div class="roboto-medium bg-gradient-to-r relative from-black to-slate-900 flex overflow-hidden">
+
+    <div class="w-[80px] overflow-auto h-screen user-options bg-slate-400/20 text-white "
+        style="overflow: -webkit-scrollbar:none">
+        <ul class="flex flex-col items-center   space-y-5  pt-5">
+            <li class="row "><a href="/" wire:navigate><i
+                        class="fa-solid mx-2 fa-address-book p-3 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
+            </li>
+            {{-- Rooms --}}
+            <li>
+                <div class=" px-4 py-2 text-transparent mx-2 bg-slate-700/80 rounded-2xl text-3xl hover:bg-green-500 cursor-pointer bg-cover"
+                    style="background-image:url('https://images.unsplash.com/photo-1682686581740-2c5f76eb86d1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                    a</div>
+            </li>
+            <li><i
+                    class="fa-solid fa-plus p-3 mx-2 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i>
+            </li>
+            <li><i
+                    class="fa-solid fa-gear p-3 mx-2 bg-slate-700/80 rounded-2xl text-3xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i>
+            </li>
+            <li><a href="{{ route('add-friend') }}" wire:navigate><i
+                        class="fa-solid fa-user-plus py-4 p-3 mx-2 bg-slate-700/80 rounded-2xl text-2xl text-green-500 hover:text-white hover:bg-green-500 cursor-pointer"></i></a>
+            </li>
+        </ul>
     </div>
+    {{--
+        --- listing all friends
+    --}}
+    <div class="h-screen bg-slate-500/20 w-[300px] user-drawer  overflow-scroll text-white">
+        <div class="w-full bg-black/60 p-5 ">
+            <input type="text" name="" id="" wire:model.live="search"
+                class="w-full rounded-sm text-white py-1 px-2 bg-slate-500" placeholder="Search in friends list...">
+        </div>
+        <h1 class="p-3">Friends</h1>
+        @foreach ($friends as $friend)
+            <livewire:chat.user-list-row index="{{ $loop->index }}" :wire:key="$friend->uuid"
+                uuid="{{ $friend->getFriendInstance()->first()->uuid }}" name="{{ $friend->user_name }}"
+                roomId='{{ $friend->getFriendInstance()->first()->room_id }}' index="{{ $loop->index }}" />
+        @endforeach
+    </div>
+    <div class="h-screen text-white flex items-center bg-slate-400/10">
+        <button onclick="toggleDrawer()">
+            <i class="fa fa-arrow-right p-2 rounded-full hover:bg-black "></i>
+        </button>
+    </div>
+    @php
+    // check if livewires update route is called or not
+    // if called then assigning old route
+        $routeName = request()->route()->getName();
+        if($routeName  === 'livewire.update'){
+            $routeName = app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+        }
+        $roomId = app('request')->create(URL::previous())->query('id');
+    @endphp
+        @switch($routeName)
+            @case('chat')
+                {{-- main messages section --}}
+                {{-- sending id if refresh occures --}}
+                <livewire:chat.chat-message-part key="{{ now() }}" id="{{ $roomId }}"/>
+            @break
+
+            @case('add-friend')
+                <livewire:user.add-friend-form />
+            @break
+
+            @case('friend-requests')
+                <livewire:user.friend-request-list />
+            @break
+
+            @default
+                {{ dump(request()->route()->getName()) }}
+            @break
+        @endswitch
+
+
+    {{--
+       --- user information
+       --- user toast
+     --}}
+    <div
+        class="w-[400px] h-[400px] hidden rounded-lg fixed bg-gradient-to-r overflow-auto from-black to-slate-900 right-10 bottom-20 text-white">
+        <div class="w-full py-2 px-1 flex justify-end"><i
+                class="fa fa-times p-3 hover:bg-slate-400/30 m-2 rounded-full cursor-pointer"></i></div>
+        <div class="w-[9em] h-[9em] rounded-full bg-cover bg-red-500 mx-auto"></div>
+        <div class="w-full flex justify-center mt-2">
+            <input type="text" name="" id=""
+                class="bg-slate-500/30 text-center p-1 rounded-md cursor-text" value="Hp1" disabled>
+        </div>
+        <div class="w-full flex justify-center mt-2">
+            <textarea name="" id="" cols="" rows=""
+                class="bg-slate-500/30 text-center p-1 rounded-md text-sm w-[90%] h-[8em] resize-none cursor-text" disabled>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, dolorem tempore quod nam nihil pr lorem20 ovident dignissimos perferendis cupiditate dolor saepe?
+        </textarea>
+        </div>
+        <div class="flex justify-around  my-3 space-x-2 mx-2">
+            <button class="bg-red-500 py-2 rounded-md px-5 w-full "><i class="fa fa-user-xmark"></i></button>
+            <button class="bg-yellow-500 py-2 rounded-md px-5 w-full"><i class="fa fa-volume-xmark"></i></button>
+
+        </div>
+    </div>
+
 </div>
 @push('script')
     <script>
-        window.secretToken = @json(session()->get('secret_token'));
+        function toogleUserOptions() {
+            let container = document.querySelector('.user-options')
+            if (container.classList.contains('flex')) {
+                container.classList.remove('flex');
+                container.classList.add('hidden');
+            } else {
+                container.classList.remove('hidden');
+                container.classList.add('flex');
+            }
+        }
+
+        function closeOptions() {
+            let container = document.querySelector('.user-options')
+            container.classList.remove('flex');
+            container.classList.add('hidden');
+        }
+
+        function toggleDrawer() {
+            let userDrawer = document.querySelector('.user-drawer');
+            let userOptions = document.querySelector('.user-options');
+
+            if (userDrawer.classList.contains('animate-newSlideIn') && userOptions.classList.contains(
+                    'animate-closeOptions')) {
+                console.log('in');
+                // opening
+                userDrawer.classList.remove('w-[0px]');
+                userDrawer.classList.add('w-[300px]');
+                userDrawer.classList.remove('animate-newSlideIn');
+                userDrawer.classList.add('animate-newSlideOut');
+
+                userOptions.classList.remove('w-[0px]');
+                userOptions.classList.add('w-[80px]');
+                userOptions.classList.remove('animate-closeOptions');
+                userOptions.classList.add('animate-openOptions');
+
+            } else {
+                console.log('out');
+                // closing
+                userDrawer.classList.remove('w-[300px]');
+                userDrawer.classList.add('w-[0px]');
+                userDrawer.classList.remove('animate-newSlideOut');
+                userDrawer.classList.add('animate-newSlideIn');
+
+                userOptions.classList.remove('w-[80px]');
+                userOptions.classList.add('w-[0px]');
+                userOptions.classList.remove('animate-openOptions');
+                userOptions.classList.add('animate-closeOptions');
+            }
+        }
     </script>
 @endpush

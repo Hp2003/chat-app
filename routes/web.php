@@ -26,15 +26,16 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::middleware(['auth'])->group(function(){
-    Route::get('chat', Chat::class);
+    Route::get('/', Chat::class);
+    Route::get('/chat', Chat::class)->name('chat');
 
     Route::get('profile', Profile::class)->name('profile');
-    Route::get('add_friend', AddFriendForm::class)->name('add-friend');
-    Route::get('friend_requests', FriendRequestList::class)->name('friend-requests');
+    Route::get('add_friend', Chat::class)->name('add-friend');
+    Route::get('friend_requests', Chat::class)->name('friend-requests');
     Route::get('logout', function(Request $request){
         Auth::logout();
         $request->session()->invalidate();
@@ -46,10 +47,5 @@ Route::middleware(['auth'])->group(function(){
 Route::get('login', Login::class)->name('login');
 Route::get('register', Register::class)->name('register');
 
-
-// websocket routes
-Route::get('/ws', function(){
-    Log::info('got req');
-});
 
 WebSocketsRouter::websocket('/send-message', SendMessageSocketHandler::class);

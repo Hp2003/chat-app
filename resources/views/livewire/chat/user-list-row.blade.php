@@ -1,39 +1,30 @@
-<div class=" flex justify-between space-x-1 p-2 border-b border-slate-500   bg-[#25445e] ">
-    <div class="flex items-center relative space-x-5">
-        <div class="p-5 rounded-full  bg-red-500 relative">
-            <input type="hidden" name="" value="{{ $roomId }}" class="user-room-id">
+{{-- new --}}
+
+<div class="p-4 flex-col  space-y-3">
+    <input type="hidden" name="" value="{{ $roomId }}" class="user-room-id">
+    <a href="{{ route('chat', ['id' => $uuid]) }}" wire:navigate
+        class="w-full p-2 rounded-md relative flex space-x-2 overflow-hidden  bg-slate-600/20 hover:bg-slate-700/40 cursor-pointer items-center">
+        <div class="p-4 bg-red-500 rounded-full relative ">
             @if ($isOnline)
-                <div class="w-[12px] h-[12px] bg-green-500 rounded-full  absolute online-indicator -right-1 bottom-1 ">
+                <div class="w-[10px] h-[10px]  bg-green-500 absolute -right-1 bottom-1 rounded-full online-indicator">
                 </div>
             @endif
         </div>
-        <button wire:click="selectUser('{{ $uuid }}')">
-            <h4 class="whitespace-nowrap">{{ $name }}</h4>
-        </button>
-        <p class="text-[12px] hidden typing-text-container text-green-500">Typing...</p>
-    </div>
-    <div class="flex flex-nowrap user-row">
-        <i class="fa-solid fa-thumbtack py-4 px-2"></i>
-        <span class=" relative  group">
-            <i class="fa-solid fa-bars py-4 px-2"></i>
-            {{-- menu --}}
-            <div class="absolute right-2 group-hover:block  hidden  ">
-                <ul class="bg-white/30 rounded-sm w-[8em] z-[10000] left-0">
-                    <li class="py-3 px-4 text-green-400 flex items-center hover:bg-black/20"><i
-                            class="fa-solid fa-user mx-2"></i> Profile</li>
-                    <li class="py-3 px-4 text-yellow-400 flex items-center hover:bg-black/20"><i
-                            class="fa-solid mx-2 fa-volume-xmark"></i>Mute</li>
-                    <li class="py-3 px-4 text-red-400  hover:bg-black/20"> <button class="flex items-center"
-                            wire:click="removeFriend('{{ $uuid }}')"><i
-                                class="fa-solid  fa-user-minus mx-2"></i> Remove</li>
-                    </button>
-                </ul>
+        <div class="overflow-hidden w-full">
+            <span class=" whitespace-nowrap text-sm">{{ $name }} </span>
+        </div>
+        {{-- when user is typing --}}
+        <div class="absolute right-5 typing-text-container hidden">
+            <div class="col-3">
+                <div class="snippet" data-title="dot-typing">
+                    <div class="stage">
+                        <div class="dot-typing"></div>
+                    </div>
+                </div>
             </div>
-        </span>
-    </div>
+        </div>
+    </a>
 </div>
-
-
 
 @script
     <script>
