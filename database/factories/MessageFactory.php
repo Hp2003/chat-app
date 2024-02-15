@@ -23,8 +23,9 @@ class MessageFactory extends Factory
         return [
             'message' => Str::random(20),
             'uuid' => Str::uuid()->toString(),
-            'sent_to_user_id' => 15,
-            'user_id' => 20
+            'sent_to_user_id' => 12,
+            'user_id' => 11,
+            'room_uuid' => 'e048a449-cbe4-47fe-a5d1-46ea049b2bdc',
         ];
     }
 }

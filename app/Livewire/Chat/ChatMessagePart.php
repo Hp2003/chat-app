@@ -7,16 +7,20 @@ use App\Models\Message;
 use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\On;
+use Livewire\WithPagination;
 
 class ChatMessagePart extends Component
 {
     use LivewireAlert;
+    use WithPagination;
 
     public $uuid = '';
     public $friend;
@@ -25,6 +29,7 @@ class ChatMessagePart extends Component
     public $message;
     public $isOnline;
     public $roomId;
+    public $editMessage = false;
 
     public function render()
     {
@@ -53,14 +58,23 @@ class ChatMessagePart extends Component
      * @param offset int, will get converted int * 25
      * @return void
      */
+
+    #[On('load-more-messages')]
     public function getUserMessages($offset)
     {
         $messages = Message::where('room_uuid', $this->friend->room_id)
-                    ->orderBy('created_at')
+                    ->orderBy('id', 'DESC')
                     ->limit(25)
                     ->offset($offset * 25);
-        array_push($this->chats,  ...$messages->get()->toArray());
+        $this->chats = array_merge( $messages->get()->toArray(), $this->chats);
+
+        $this->chats = array_values(Arr::sort($this->chats, function($val){
+            return $val['id'];
+        }));
+
+        return $offset;
     }
+
 
     public function sendMessage()
     {
@@ -76,7 +90,7 @@ class ChatMessagePart extends Component
             $newMsg = Message::create(['uuid' => $uuid, 'message' => $this->message, 'user_id' => $from, 'sent_to_user_id' => $to, 'room_uuid' => $this->friend->room_id]);
             array_push($this->chats, $newMsg->toArray());
             broadcast(new MessageSentEvent($this->roomId, $newMsg->id))->toOthers();
-            $this->message = '';
+            // $this->message = '';
             $this->alert('success', 'Message sent');
         } else {
             $this->alert('warning', 'Message sending failed');
@@ -138,4 +152,6 @@ class ChatMessagePart extends Component
         $this->chats = $messageCollection->toArray();
         $this->alert('success', 'Message deleted successfully');
     }
+
+
 }
